@@ -20,10 +20,8 @@ def Dichotomie(f,a,b,eps,Nmax):
         k=k+1
         if(f(a)*f(c)<0):
             b=c
-        elif(f(c)*f(b)<0) :
+        else :
             a=c
-        else:
-            print("la méthode n'est plus applicable")
         c=(a+b)/2
         fc=f(c)
     return (c,residu,k)
@@ -53,6 +51,8 @@ def fDf(x):
 def F(x):
     return (2.0*x+2.0/x)/3.0
 
+def g(x):
+    return np.power(x,3)
 
 eps=1e-6
 x0=1/2
@@ -60,7 +60,8 @@ print("x0: ",x0)
 
 
 #_____________________________________________ Test Dichotomie _____________________________________________#
-(c,r,k)=Dichotomie(f,-7,5,eps,300)
+print("Dichotomie")
+(c,r,k)=Dichotomie(g,-7,5,eps,300)
 print(c,r[-1],k)
 #_____________________________________________ Test PointFixe _____________________________________________#
 (x,k,r0)=PointFixe(F,x0,1e-6,300)
@@ -74,15 +75,15 @@ print(x1,k1)
 
 #_____________________________________________ Newton in N dim _____________________________________________#
 
-def NewtonDimN(fonc, jac, x0, eps, Nmax,a,b,c,d,h):
-    x = x0
-    k = 0
-    fx = fonc(x,x0,a,b,c,d,h)
-    dfx = jac(x,a,b,c,d,h)
-    while(np.linalg.norm(fx) > eps and k < Nmax):
-        k=k+1 #incrément de k
-        x=x-np.dot(np.linalg.inv(dfx),fx) # calcul du nouveau x
-        fx=fonc(x,x0,a,b,c,d,h)
-        dfx=jac(x,a,b,c,d,h) # mise ajour de la jacobienne
-    return x
+# def NewtonDimN(fonc, jac, x0, eps, Nmax,a,b,c,d,h):
+#     x = x0
+#     k = 0
+#     fx = fonc(x,x0,a,b,c,d,h)
+#     dfx = jac(x,a,b,c,d,h)
+#     while(np.linalg.norm(fx) > eps and k < Nmax):
+#         k=k+1 #incrément de k
+#         x=x-np.dot(np.linalg.inv(dfx),fx) # calcul du nouveau x
+#         fx=fonc(x,x0,a,b,c,d,h)
+#         dfx=jac(x,a,b,c,d,h) # mise ajour de la jacobienne
+#     return x
 
